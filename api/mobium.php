@@ -1,8 +1,11 @@
 <?php
+
+use Bitrix\Main\Context;
+
 require_once ($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_before.php');
 $sMethod = trim($_GET['method']);
 global $APPLICATION;
-
+$request = Context::getCurrent()->getRequest();
 switch ($sMethod){
     case 'getRegistrationFields':
         $APPLICATION->IncludeComponent('mobium:profile', '.default', [
@@ -15,8 +18,24 @@ switch ($sMethod){
         ]);
         break;
     case 'userAuthorization':
+        $APPLICATION->IncludeComponent('mobium:user_authorization', '.default', [
+            'method'=>'auth_by_login'
+        ]);
+        break;
     case 'userLogout':
-        $APPLICATION->IncludeComponent('mobium:user_authorization', '.default');
+        $APPLICATION->IncludeComponent('mobium:user_authorization', '.default', [
+            'method'=>'logout'
+        ]);
+        break;
+    case 'authByCode':
+        $APPLICATION->IncludeComponent('mobium:user_authorization', '.default', [
+            'method'=>'auth_by_code'
+        ]);
+        break;
+    case 'verifyCode':
+        $APPLICATION->IncludeComponent('mobium:user_authorization', '.default', [
+            'method'=>'verify_code'
+        ]);
         break;
     case 'getRestoreFields':
         $APPLICATION->IncludeComponent('mobium:profile', '.default', [
@@ -53,4 +72,34 @@ switch ($sMethod){
             'method'=>'commit_order'
         ]);
         break;
+
+    case 'applyCode':
+        $APPLICATION->IncludeComponent('mobium:basket', '.default', [
+            'method'=>'apply_code'
+        ]);
+        break;
+    case 'generateBarcode':
+        $APPLICATION->IncludeComponent('mobium:profile', '.default', [
+            'method'=>'generate_code'
+        ]);
+        break;
+
+    case 'verifyData':
+        $APPLICATION->IncludeComponent('mobium:user_registration', '.default', [
+            'method'=>'verify_data'
+        ]);
+        break;
+    case 'getNewCode':
+        $APPLICATION->IncludeComponent('mobium:user_registration', '.default', [
+            'method'=>'get_new_code'
+        ]);
+        break;
+    case 'userPhoto':
+        $APPLICATION->IncludeComponent('mobium:profile', '.default', [
+            'method'=>'user_photo'
+        ]);
+        break;
+
+
+
 }

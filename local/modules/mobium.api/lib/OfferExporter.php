@@ -49,6 +49,11 @@ abstract class OfferExporter
     protected $tmpUser;
 
     /**
+     * @var string
+     */
+    protected $serverName;
+
+    /**
      * @var array
      */
     protected $selectProductsFields = [
@@ -211,6 +216,13 @@ abstract class OfferExporter
         $text = $APPLICATION->ConvertCharset($text, LANG_CHARSET, $this->charset);
 
         return $text;
+    }
+
+    protected function getServerName(){
+        if (!$this->serverName){
+            $this->serverName = (\CMain::IsHTTPS() ? 'https://' : 'http://') . COption::GetOptionString("main", "server_name", $_SERVER['SERVER_NAME']);
+        }
+        return $this->serverName;
     }
 
     /**

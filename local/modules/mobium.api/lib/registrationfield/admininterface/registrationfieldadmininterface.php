@@ -74,6 +74,8 @@ class RegistrationFieldAdminInterface extends AdminInterface
                     'email'=>'Email',
                     'password'=>'Пароль',
                     'phone'=>'Телефон',
+                    'sex_select'=>'Выбо пола',
+                    'date_picker'=>'Дата',
                 ]
             ],
         ];

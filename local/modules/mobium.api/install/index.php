@@ -46,6 +46,27 @@ class mobium_api extends CModule
         );
         ModuleManager::registerModule($this->MODULE_ID);
         Loader::includeModule($this->MODULE_ID);
+        /** @see https://dev.1c-bitrix.ru/api_help/main/reference/cagent/addagent.php */
+        CAgent::AddAgent(
+            'Mobium\Api\ExportYML::run();',
+            'mobium.api',
+            'N',
+            86400
+        );
+
+        CAgent::AddAgent(
+            'Mobium\Api\ExportBalance::run();',
+            'mobium.api',
+            'N',
+            86400
+        );
+
+        CAgent::AddAgent(
+            'Mobium\Api\ExportPoints::run();',
+            'mobium.api',
+            'N',
+            86400
+        );
 
 
         $this->installFiles();

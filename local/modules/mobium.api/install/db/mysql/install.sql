@@ -38,3 +38,53 @@ CREATE TABLE `mobium_user_token`(
   `USER_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+CREATE TABLE `mobium_delivery_type_assoc`(
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ACTIVE` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
+  `DELIVERY_SERVICE_ID_BITRIX` varchar(100) COLLATE utf8_general_ci NOT NULL,
+  `DELIVERY_SERVICE_ID_MOBIUM` varchar (100) COLLATE utf8_general_ci NOT NULL,
+  `DELIVERY_SERVICE_AREA_ID` varchar(100) collate utf8_general_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE `mobium_offers_export_props`(
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `EXPORT_PROP_ID` VARCHAR(255) COLLATE utf8_general_ci NOT NULL,
+  `EXPORT_PROP` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'Y',
+  `EXPORT_NAME` varchar(255) COLLATE utf8_general_ci NULL,
+  `EXPORT_SORT` int(11) NOT NULL DEFAULT 500,
+  `PROP_IS_VENDOR_CODE` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
+  `PROP_IS_TOOLTIP` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
+  `TOOLTIP_OPTIONS` TEXT NULL,
+
+  PRIMARY KEY (`ID`)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE `mobium_products_export_props`(
+   `ID` int(11) NOT NULL AUTO_INCREMENT,
+   `EXPORT_PROP_ID` VARCHAR(255) COLLATE utf8_general_ci NOT NULL,
+   `EXPORT_PROP` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'Y',
+   `EXPORT_NAME` varchar(255) COLLATE utf8_general_ci NULL,
+   `EXPORT_SORT` int(11) NOT NULL DEFAULT 500,
+   `PROP_IS_VENDOR_CODE` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
+   `PROP_IS_TOOLTIP` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
+   `TOOLTIP_OPTIONS` TEXT NULL,
+
+   PRIMARY KEY (`ID`)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE `mobium_register_session`(
+   `ID` int(11) NOT NULL AUTO_INCREMENT,
+   `APP_ID` INT(11) NOT NULL,
+   `CREATED_AT` INT(11) NOT NULL,
+   `DATA` TEXT NULL,
+   PRIMARY KEY (`ID`)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE `mobium_auth_tries`(
+    `APP_ID` int(11) NOT NULL,
+    `DATA` TEXT NULL,
+    PRIMARY KEY (`APP_ID`)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
