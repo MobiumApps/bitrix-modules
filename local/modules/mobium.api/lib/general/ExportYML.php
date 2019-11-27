@@ -6,109 +6,34 @@ use Bitrix\Currency;
 use Bitrix\Catalog\ProductTable;
 use Bitrix\Iblock\PropertyTable;
 use Bitrix\Main\Config\Option;
-use http\Env\Request;
 use Mobium\Api\OffersExportProps\OffersExportPropsTable;
 use Mobium\Api\ProductsExportProps\ProductsExportPropsTable;
 
-class ExportYML
+class ExportYML extends OfferExporter
 {
-    /**
-     * ID ИБ товаров
-     * @var int
-     */
-    protected $productsIblock;
 
     /**
-     * ID ИБ торговых предложений
-     * @var int
-     */
-    protected $offersIblock;
-
-    /**
-     * Карта свойств товаров
-     * @var array
+     * @var array - Карта свойств товаров
      */
     protected $propertiesMap = [];
 
     /**
-     * @var string
-     */
-    protected $charset = 'utf-8';
-
-    /**
-     * @var bool
-     */
-    protected $isError = false;
-
-    /**
-     * @var string
-     */
-    protected $filePath;
-
-    /**
-     * @var string
-     */
-    protected $fileName = 'mobium_new.yml';
-
-    /**
-     * @var resource
-     */
-    protected $file;
-
-    /**
-     * @var string
-     */
-    protected $lockFilePath;
-
-    /**
-     * @var \CUser
-     */
-    protected $user;
-
-    /**
-     * @var bool
-     */
-    protected $tempUserCreated = false;
-
-    /**
-     * @var string
-     */
-    protected $protocol;
-
-    /**
-     * @var \CUser
-     */
-    protected $tmpUser;
-
-    /**
-     * @var string
-     */
-    protected $baseCurrency;
-
-    /**
-     * @var string
-     */
-    protected $currencyRub = 'RUB';
-
-    /**
-     * @var array
+     * @var array - доступны категории
      */
     protected $categoriesAvailable = [];
 
-    public function __construct($iProductsIblock, $iOffersIblock)
-    {
-        set_time_limit(0);
-        $this->setProductsIblock($iProductsIblock);
-        $this->setOffersIblock($iOffersIblock);
-    }
-
-    public static function run(){
-        $iProductsIblockId = Option::get('mobium.api', 'products_iblock', '26');
-        $iOffersIblockId = Option::get('mobium.api', 'offers_iblock', '27');
-        $oObject = new static((int) $iProductsIblockId, (int) $iOffersIblockId);
-        $oObject->buildPropertiesMap()->start();
+    public static function run(): string
+	{
+        new static();
         return 'Mobium\Api\ExportYML::run();';
     }
+
+    function beforeStart(): bool
+	{
+		if(parent::beforeStart()){
+			$this->buildPropertiesMap();
+		}
+	}
 
     public function buildPropertiesMap()
     {
@@ -155,11 +80,9 @@ class ExportYML
         while ($aData = $oRes->fetch()) {
             if (!isset($this->propertiesMap[$aData['IBLOCK_ID']])) {
                 continue;
-                //$this->propertiesMap[$aData['IBLOCK_ID']] = [];
             }
             $this->propertiesMap[$aData['IBLOCK_ID']][$aData['ID']]['PROP_INFO'] = $aData;
         }
-        //var_dump($this->propertiesMap);
         return $this;
     }
 
@@ -601,14 +524,16 @@ class ExportYML
     }
 
     /**
-     * @return int
+	 * Возвращает ID ИБ продуктов
+	 * @return int
      */
-    public function getProductsIblock()
+    public function getProductsIblock() : int
     {
         return $this->productsIblock;
     }
 
     /**
+	 * Устанавливает ID ИБ продуктов
      * @param int $productsIblock
      * @return $this
      */
@@ -619,6 +544,7 @@ class ExportYML
     }
 
     /**
+	 * Возвращает ID ИБ SKU
      * @return int
      */
     public function getOffersIblock()
@@ -627,6 +553,7 @@ class ExportYML
     }
 
     /**
+	 * Устанавливает ID ИБ SKU
      * @param int $offersIblock
      * @return $this
      */
@@ -655,117 +582,34 @@ class ExportYML
     }
 
     /**
-     * @param string $text
-     * @param bool $bHSC использовать htmlspecialchars
-     * @param bool $bDblQuote декодировать &quot; в "
-     * @return string
-     */
-    protected function text2xml($text, $bHSC = false, $bDblQuote = false)
-    {
-        global $APPLICATION;
-
-        $bHSC = (true == $bHSC ? true : false);
-        $bDblQuote = (true == $bDblQuote ? true: false);
-
-        if ($bHSC) {
-            $text = htmlspecialcharsbx($text);
-            if ($bDblQuote){
-                $text = str_replace('&quot;', '"', $text);
-            }
-
-        }
-        $text = preg_replace('/[\x01-\x08\x0B-\x0C\x0E-\x1F]/', "", $text);
-        $text = str_replace("'", "&apos;", $text);
-        $text = $APPLICATION->ConvertCharset($text, LANG_CHARSET, $this->charset);
-
-        return $text;
-    }
-
-    /**
      * @param bool $bBool
      * @return string
      */
-    protected function renderBool($bBool){
+    protected function renderBool($bBool) : string
+	{
         return $bBool === true ? 'true' : 'false';
     }
 
-    protected function beforeStart()
-    {
-        $this->createUser();
-        //\CCatalogDiscountSave::Disable();
-        //\CCatalogDiscountCoupon::ClearCoupon();
-        if ($this->user->IsAuthorized()) {
-            \CCatalogDiscountCoupon::ClearCouponsByManage($this->user->GetID());
-        }
-        $this->protocol = (\CMain::IsHTTPS() ? 'https://' : 'http://');
-        $this->protocol = 'https://';
-        $this->defineCurrency();
-        $strExportPath = \COption::GetOptionString("catalog", "export_default_path", CATALOG_DEFAULT_EXPORT_PATH);
-        $this->filePath = Rel2Abs('/',str_replace('//','/',$strExportPath."/{$this->fileName}"));
-        if (!empty($this->filePath)){
-            $this->lockFilePath = $this->filePath.'.lock';
-            if (file_exists($this->lockFilePath)){
-                return false;
-            }
-            file_put_contents($this->lockFilePath, 'locked');
-            CheckDirPath($_SERVER["DOCUMENT_ROOT"].$strExportPath);
+    protected function renderHeader(): string
+	{
+		$sResult = "<?xml version=\"1.0\" encoding=\"".$this->charset."\"?>".PHP_EOL;
+		$sResult.= "\n<!DOCTYPE yml_catalog SYSTEM \"shops.dtd\">".PHP_EOL;
+		$sResult.= "<yml_catalog date=\"".date("Y-m-d H:i")."\">".PHP_EOL;
+		$sResult.= "<shop>".PHP_EOL;
+		return $sResult;
+	}
 
-            if ($this->file = @fopen($_SERVER["DOCUMENT_ROOT"].$this->filePath, 'wb')) {
-                return true;
-            }
-        }
-        return false;
-    }
+    protected function renderFooter(): string
+	{
+		return '</shop>'.PHP_EOL.'</yml_catalog>';
+	}
 
-    protected function createUser()
-    {
-        global $USER;
-        if (!\CCatalog::IsUserExists()) {
-            $this->tempUserCreated = true;
-            if (isset($USER)) {
-                $this->tmpUser = $USER;
-            }
-            $this->user = new \CUser();
-        } else {
-            $this->user = $USER;
-        }
-    }
-
-    /**
-     * @throws \Bitrix\Main\ArgumentException
-     * @throws \Bitrix\Main\ObjectPropertyException
-     * @throws \Bitrix\Main\SystemException
-     */
-    protected function defineCurrency()
-    {
-        $this->baseCurrency = Currency\CurrencyManager::getBaseCurrency();
-        $currencyIterator = Currency\CurrencyTable::getList(array(
-            'select' => array('CURRENCY'),
-            'filter' => array('=CURRENCY' => 'RUR')
-        ));
-        if ($currency = $currencyIterator->fetch()){
-            $this->currencyRub = 'RUR';
-        }
-    }
-
-    public function start(){
-        \Bitrix\Main\Loader::IncludeModule("highloadblock");
-        set_time_limit(0);
-        ini_set('memory_limit', '4096M');
-        if (true !==$this->beforeStart()){
-            exit();
-        }
-        $this->_start();
-        $this->endExport();
-    }
-    protected function _start()
+    protected function processCatalog(): string
     {
         fwrite($this->file, $this->renderShopInfo());
         fwrite($this->file, $this->renderCurrency());
         fwrite($this->file, $this->processCategories());
         fwrite($this->file, $this->processProducts());
-        fwrite($this->file, '</shop>'.PHP_EOL.'</yml_catalog>');
-        fclose($this->file);
     }
 
     /**
@@ -774,34 +618,15 @@ class ExportYML
     protected function renderShopInfo()
     {
         global $APPLICATION;
-        $sResult = '<?xml version="1.0" encoding="'.$this->charset.'"?>';
-        $sResult.= "\n<!DOCTYPE yml_catalog SYSTEM \"shops.dtd\">\n";
-        $sResult.= "<yml_catalog date=\"".date("Y-m-d H:i")."\">\n";
-        $sResult.= "<shop>\n";
-        $sResult.= "<name>".$APPLICATION->ConvertCharset(htmlspecialcharsbx(\COption::GetOptionString("main", "site_name", "")), LANG_CHARSET, $this->charset)."</name>\n";
+        $sResult = "<name>".$APPLICATION->ConvertCharset(htmlspecialcharsbx(\COption::GetOptionString("main", "site_name", "")), LANG_CHARSET, $this->charset)."</name>\n";
         $sResult.= "<company>".$APPLICATION->ConvertCharset(htmlspecialcharsbx(\COption::GetOptionString("main", "site_name", "")), LANG_CHARSET, $this->charset)."</company>\n";
         $sResult.= "<url>".$this->protocol.htmlspecialcharsbx(\COption::GetOptionString("main", "server_name", ""))."</url>\n";
         $sResult.= "<platform>1C-Bitrix</platform>\n";
         return $sResult;
     }
 
-    protected function endExport()
-    {
-        if ($this->isError) {
-            \CEventLog::Log('WARNING','CAT_YAND_AGENT','mobium.api','exportYML',$this->filePath);
-        }
-        @unlink($this->lockFilePath);
-        $this->deleteUser();
-    }
-
-    protected function deleteUser()
-    {
-        global $USER;
-        if ($this->tempUserCreated) {
-            if (isset($this->tmpUser) && $this->tmpUser instanceof \CUser) {
-                $USER = $this->tmpUser;
-                unset($this->tmpUser);
-            }
-        }
-    }
+    function getFileName(): string
+	{
+		return "mobium_new.yml";
+	}
 }

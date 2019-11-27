@@ -99,7 +99,4 @@ switch ($sMethod){
             'method'=>'user_photo'
         ]);
         break;
-
-
-
 }
