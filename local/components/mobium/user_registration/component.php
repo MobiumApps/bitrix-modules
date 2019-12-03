@@ -309,7 +309,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 ]
             ];
         }
-    } elseif ($arParams['method'] === 'user_restore_password') {
+    }
+    elseif ($arParams['method'] === 'user_restore_password') {
         $aRequestData = null;
         if (isset($aInputData['login'])){
             $oUserResult = CUser::GetByLogin(trim($aInputData['login']));
@@ -380,7 +381,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         }*/
 
-    } elseif ($arParams['method'] === 'verify_data') {
+    }
+    elseif ($arParams['method'] === 'verify_data') {
         if (isset($aInputData['appId'])){
             $aRegisterSessionData = \Mobium\Api\ApiHelper::getRegisterSessionData((int) $aInputData['appId']);
             if (isset($aRegisterSessionData['ID'])){
@@ -465,7 +467,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 ];
             }
         }
-    } elseif ($arParams['method'] == 'get_new_code'){
+    }
+    elseif ($arParams['method'] == 'get_new_code'){
         if (isset($aInputData['appId'])) {
             $aRegisterSessionData = \Mobium\Api\ApiHelper::getRegisterSessionData((int)$aInputData['appId']);
             if (isset($aRegisterSessionData['ID'])) {

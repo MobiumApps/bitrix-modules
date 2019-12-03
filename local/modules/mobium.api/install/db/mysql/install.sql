@@ -39,7 +39,6 @@ CREATE TABLE `mobium_user_token`(
   PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-
 CREATE TABLE `mobium_delivery_type_assoc`(
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ACTIVE` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
