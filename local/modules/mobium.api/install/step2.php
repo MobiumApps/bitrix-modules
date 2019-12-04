@@ -3,7 +3,7 @@ use \Bitrix\Main\Localization\Loc;
 
 if (!check_bitrix_sessid())
 	return;
-global $APPLICATION;
+
 if ($ex = $APPLICATION->GetException()) {
 	echo CAdminMessage::ShowMessage([
 		"TYPE" => "ERROR",

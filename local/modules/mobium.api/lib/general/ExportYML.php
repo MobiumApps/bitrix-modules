@@ -159,22 +159,32 @@ class ExportYML extends OfferExporter
         $sResult.= "</currencies>\n";
         return $sResult;
     }
+	protected function getProductFilter(): array {
 
+		$field = [
+			'=IBLOCK_ELEMENT.IBLOCK_ID'=>[$this->productsIblock,$this->offersIblock],
+			'@TYPE'=>[
+				ProductTable::TYPE_PRODUCT,
+				ProductTable::TYPE_SKU
+			],
+			'=AVAILABLE'=>'Y',
+			'=IBLOCK_ELEMENT.ACTIVE'=>'Y'
+		];
+    	if ($field = Option::get("mobiun.api", "filter_name")) {
+			$arFilter2 = [
+				"!{$field}" => false
+			];
+		}
+    	return array_merge($field, $arFilter2);
+	}
     public function processProducts()
     {
     	Loader::includeModule('catalog');
         $aResult = [];
+
         $oRes = ProductTable::getList([
             'select'=>['*'],
-            'filter'=>[
-                '=IBLOCK_ELEMENT.IBLOCK_ID'=>[$this->productsIblock,$this->offersIblock],
-                '@TYPE'=>[
-                    ProductTable::TYPE_PRODUCT,
-                    ProductTable::TYPE_SKU
-                ],
-                '=AVAILABLE'=>'Y',
-                '=IBLOCK_ELEMENT.ACTIVE'=>'Y'
-            ],
+            'filter'=> $this->getProductFilter(),
         ]);
         $sResult = '<offers>'.PHP_EOL;
         while ($aItem = $oRes->fetch()){

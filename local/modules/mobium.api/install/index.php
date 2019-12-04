@@ -101,7 +101,7 @@ Class mobium_api extends CModule
 		$this->errors = false;
 		$this->errors = $DB->RunSQLBatch($this->GetPath() . "/install/db/mysql/install.sql");
 		if ($this->errors) {
-			$APPLICATION->ThrowException(Localization\Loc::getMessage("MOBIUM_API_INSTALL_DB_ERROR".["#errors#" => implode(", ",$this->errors)])); ;
+			$APPLICATION->ThrowException(Localization\Loc::getMessage("MOBIUM_API_INSTALL_DB_ERROR",["#errors#" => implode(", ",$this->errors)])); ;
 		}
 	}
 
@@ -129,7 +129,7 @@ Class mobium_api extends CModule
 
 	function InstallFiles()
 	{
-		CopyDirFiles($this->GetPath()."/install/components", $_SERVER["DOCUMENT_ROOT"]."/bitrix/components", true, true);
+		CopyDirFiles($this->GetPath()."/install/components", $_SERVER["DOCUMENT_ROOT"]."/local/components", true, true);
 		if (IO\Directory::isDirectoryExists($path = $this->GetPath() . '/admin')) {
 			// CopyDirFiles($this->GetPath()."/install/admin/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin"); // если есть файлы админки
 			if ($dir = opendir($path)) {
@@ -147,7 +147,7 @@ Class mobium_api extends CModule
 
 	function UnInstallFiles()
 	{
-		IO\Directory::deleteDirectory($_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/mobium/');
+		IO\Directory::deleteDirectory($_SERVER["DOCUMENT_ROOT"] . '/local/components/mobium/');
 		if(IO\Directory::isDirectoryExists($path = $this->GetPath().'/admin')) {
 			// DeleteDirFiles($_SERVER["DOCUMENT_ROOT"] . $this->GetPath() . '/install/admin/', $_SERVER["DOCUMENT_ROOT"] . '/bitrix/admin');
 			if($dir = opendir($path)) {

@@ -8,7 +8,6 @@ if (!check_bitrix_sessid())
 
 Loc::loadMessages(__FILE__);
 $request = Application::getInstance()->getContext()->getRequest();
-global $APPLICATION;
 ?>
 <form action="<?=$APPLICATION->GetCurPage();?>">
 	<input type="hidden" name="lang" value="<?=LANGUAGE_ID?>">

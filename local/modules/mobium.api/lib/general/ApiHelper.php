@@ -5,7 +5,7 @@ use Bitrix\Main\Config\Option;
 use Bitrix\Main\Web\HttpClient;
 
 /**
- * Class ApiHelper
+ * Class ApiHelper - Вызывает методы API со стороны битрикса
  * @package Mobium\Api
  */
 class ApiHelper extends Helper
