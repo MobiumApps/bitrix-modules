@@ -3,9 +3,11 @@
 use Bitrix\Main\Application;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\Loader;
+use Mobium\Api\ApiHelper;
 
 defined('ADMIN_MODULE_NAME') or define('ADMIN_MODULE_NAME', 'mobium.api');
-
+Loader::includeModule('mobium.api');
 if (!$USER->isAdmin()) {
     $APPLICATION->authForm('Nope');
 }
@@ -33,7 +35,7 @@ if ((!empty($save) || !empty($restore)) && $request->isPost() && check_bitrix_se
             "TYPE" => "OK",
         ));
     } elseif ($request->isPost() ) {
-        $aKeys = ['api_key', 'pool_start', 'pool_total', 'pool_last_card', 'server_url', 'products_iblock', 'offers_iblock'];
+        $aKeys = ['api_key', 'pool_start', 'pool_total', 'pool_last_card', 'server_url', 'products_iblock', 'offers_iblock', 'filter_name', 'catalog_group', 'logger'];
         foreach ($aKeys as $sKey){
 
             if (null !== $request->getPost($sKey)){
@@ -43,12 +45,17 @@ if ((!empty($save) || !empty($restore)) && $request->isPost() && check_bitrix_se
                     $request->getPost($sKey)
                 );
             }
+            if ($sKey == "logger" && null === $request->getPost($sKey)) {
+				Option::set(
+					ADMIN_MODULE_NAME,
+					$sKey,
+					0
+				);
+            }
         }
 
-
-
         CAdminMessage::showMessage(array(
-            "MESSAGE" => "Параметры сохранены",
+            "MESSAGE" => Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_SAVED"),
             "TYPE" => "OK",
         ));
     } else {
@@ -66,7 +73,7 @@ $tabControl->begin();
     ?>
     <tr>
         <td width="40%">
-            <label for="max_image_size"><?='Ключ API'?>:</label>
+            <label for="api_key"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_api_key_OPTION")?>:</label>
         <td width="60%">
             <input type="text"
                    size="50"
@@ -77,7 +84,7 @@ $tabControl->begin();
     </tr>
     <tr>
         <td width="40%">
-            <label for="max_image_size"><?='Начальное значение пула вирт. карт'?>:</label>
+            <label for="pool_start"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_pool_start_OPTION")?>:</label>
         <td width="60%">
             <input type="text"
                    size="50"
@@ -88,7 +95,7 @@ $tabControl->begin();
     </tr>
     <tr>
         <td width="40%">
-            <label for="max_image_size"><?='Всего вирт. карт'?>:</label>
+            <label for="pool_total"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_pool_total_OPTION")?>:</label>
         <td width="60%">
             <input type="text"
                    size="50"
@@ -99,7 +106,7 @@ $tabControl->begin();
     </tr>
     <tr>
         <td width="40%">
-            <label for="max_image_size"><?='Последняя выданная карта'?>:</label>
+            <label for="pool_last_card"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_pool_last_card_OPTION")?>:</label>
         <td width="60%">
             <input type="text"
                    size="50"
@@ -110,7 +117,7 @@ $tabControl->begin();
     </tr>
     <tr>
         <td width="40%">
-            <label for="max_image_size"><?='URL сервера'?>:</label>
+            <label for="server_url"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_server_url_OPTION")?>:</label>
         <td width="60%">
             <input type="text"
                    size="50"
@@ -121,7 +128,7 @@ $tabControl->begin();
     </tr>
     <tr>
         <td width="40%">
-            <label for="max_image_size"><?='ID инфоблока товаров'?>:</label>
+            <label for="products_iblock"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_products_iblock_OPTION")?>:</label>
         <td width="60%">
             <input type="text"
                    size="50"
@@ -132,12 +139,49 @@ $tabControl->begin();
     </tr>
     <tr>
         <td width="40%">
-            <label for="max_image_size"><?='ID инфоблока товарных предложений'?>:</label>
+            <label for="offers_iblock"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_offers_iblock_OPTION")?>:</label>
         <td width="60%">
             <input type="text"
                    size="50"
                    name="offers_iblock"
                    value="<?=\Bitrix\Main\Text\HtmlFilter::encode(Option::get(ADMIN_MODULE_NAME, "offers_iblock", '27'));?>"
+            />
+        </td>
+    </tr>
+    <tr>
+	    <?
+		$curr = Option::get(ADMIN_MODULE_NAME, "catalog_group", 0);
+	    ?>
+	    <td width="40%">
+		    <label for="catalog_group"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_catalog_group_OPTION")?>:</label>
+	    <td width="60%">
+		    <select name="catalog_group">
+			    <? foreach (ApiHelper::getPriceTypes() as $price) {
+			    	?>
+				    <option value="<?=$price["ID"]?>" <? if($curr==$price["ID"]){print " selected='selected'";} ?>><?=$price["NAME"]?></option>
+			    <?}?>
+		    </select>
+	    </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            <label for="filter_name"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_filter_name_OPTION")?>:</label>
+        <td width="60%">
+            <input type="text"
+                   size="50"
+                   name="filter_name"
+                   value="<?=\Bitrix\Main\Text\HtmlFilter::encode(Option::get(ADMIN_MODULE_NAME, "filter_name", 'ACTION_ICON'));?>"
+            />
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            <label for="logger"><?=Loc::getMessage("MOBIUM_API_MODULE_OPTIONS_logger_OPTION")?>:</label>
+        <td width="60%">
+            <input type="checkbox"
+				<? if(Option::get(ADMIN_MODULE_NAME, "logger", '0') > 0 ) { echo " checked"; }?>
+                   name="logger"
+                   value="1"
             />
         </td>
     </tr>

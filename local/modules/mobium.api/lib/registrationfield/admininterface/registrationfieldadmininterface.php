@@ -70,12 +70,12 @@ class RegistrationFieldAdminInterface extends AdminInterface
                 'SIZE'=>80,
                 'FILTER'=>'%',
                 'VARIANTS'=>[
-                    'text'=>'Ð¢ÐµÐºÑÑ‚',
+                    'text'=>'Òåêñò',
                     'email'=>'Email',
-                    'password'=>'ÐŸÐ°Ñ€Ð¾Ð»ÑŒ',
-                    'phone'=>'Ð¢ÐµÐ»ÐµÑ„Ð¾Ð½',
-                    'sex_select'=>'Ð’Ñ‹Ð±Ð¾ Ð¿Ð¾Ð»Ð°',
-                    'date_picker'=>'Ð”Ð°Ñ‚Ð°',
+                    'password'=>'Ïàðîëü',
+                    'phone'=>'Òåëåôîí',
+                    'sex_select'=>'Âûáî ïîëà',
+                    'date_picker'=>'Äàòà',
                 ]
             ],
         ];
@@ -101,10 +101,10 @@ class RegistrationFieldAdminInterface extends AdminInterface
                 'SIZE'=>80,
                 'FILTER'=>'%',
                 'VARIANTS'=>[
-                    'text'=>'Ð¢ÐµÐºÑÑ‚',
+                    'text'=>'Òåêñò',
                     'email'=>'Email',
-                    'password'=>'ÐŸÐ°Ñ€Ð¾Ð»ÑŒ',
-                    'phone'=>'Ð¢ÐµÐ»ÐµÑ„Ð¾Ð½',
+                    'password'=>'Ïàðîëü',
+                    'phone'=>'Òåëåôîí',
                 ]
             ],
             'VERIFICATION_DRIVER'=>[
@@ -139,13 +139,13 @@ class RegistrationFieldAdminInterface extends AdminInterface
                 'SIZE'=>80,
                 'FILTER'=>'%',
                 'VARIANTS'=>[
-                    'name_field'=>'Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð¾Ð± Ð¸Ð¼ÐµÐ½Ð¸',
-                    'image_action_field'=>'Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð¸ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ',
-                    'title_text_field'=>'Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº Ð¸ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ',
-                    'text_field'=>'Ð¢ÐµÐºÑÑ‚',
-                    'action_field'=>'Ð”ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ',
-                    'bonus_field'=>'Ð‘Ð¾Ð½ÑƒÑÑ‹',
-                    'barcode_field'=>'Ð¨Ñ‚Ñ€Ð¸Ñ…-ÐºÐ¾Ð´',
+                    'name_field'=>'Äàííûå îá èìåíè',
+                    'image_action_field'=>'Èçîáðàæåíèå è äåéñòâèå',
+                    'title_text_field'=>'Çàãîëîâîê è çíà÷åíèå',
+                    'text_field'=>'Òåêñò',
+                    'action_field'=>'Äåéñòâèå',
+                    'bonus_field'=>'Áîíóñû',
+                    'barcode_field'=>'Øòðèõ-êîä',
                 ]
             ],
             'PROFILE_ACTION'=>[
@@ -153,22 +153,22 @@ class RegistrationFieldAdminInterface extends AdminInterface
                 'SIZE'=>80,
                 'FILTER'=>'%',
                 'VARIANTS'=>[
-                    'openCategory' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑŽ',
-                    'openCatalog' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³',
-                    'openProduct' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ‚Ð¾Ð²Ð°Ñ€',
-                    'openSearch' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¿Ð¾Ð¸ÑÐº',
-                    'openUrl' => 'Ð¡ÑÑ‹Ð»ÐºÐ° Ð² Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ð¸',
-                    'openUrlExternal' => 'Ð¡ÑÑ‹Ð»ÐºÐ° Ð² Ð±Ñ€Ð°ÑƒÐ·ÐµÑ€Ðµ',
-                    'doCall' => 'Ð—Ð²Ð¾Ð½Ð¾Ðº',
-                    'openCart' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñƒ',
-                    'openMainScreen' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð³Ð»Ð°Ð²Ð½Ñ‹Ð¹ ÑÐºÑ€Ð°Ð½',
-                    'openShops' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ°Ñ€Ñ‚Ñƒ',
-                    'openHistory' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¸ÑÑ‚Ð¾Ñ€Ð¸ÑŽ Ð·Ð°ÐºÐ°Ð·Ð¾Ð²',
-                    'openArticles' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ ÑÑ‚Ð°Ñ‚ÑŒÑŽ',
+                    'openCategory' => 'Îòêðûòü êàòåãîðèþ',
+                    'openCatalog' => 'Îòêðûòü êàòàëîã',
+                    'openProduct' => 'Îòêðûòü òîâàð',
+                    'openSearch' => 'Îòêðûòü ïîèñê',
+                    'openUrl' => 'Ññûëêà â ïðèëîæåíèè',
+                    'openUrlExternal' => 'Ññûëêà â áðàóçåðå',
+                    'doCall' => 'Çâîíîê',
+                    'openCart' => 'Îòêðûòü êîðçèíó',
+                    'openMainScreen' => 'Îòêðûòü ãëàâíûé ýêðàí',
+                    'openShops' => 'Îòêðûòü êàðòó',
+                    'openHistory' => 'Îòêðûòü èñòîðèþ çàêàçîâ',
+                    'openArticles' => 'Îòêðûòü ñòàòüþ',
                     //'openCatalogInsideMenu' => false,
-                    'openFavourites' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¸Ð·Ð±Ñ€Ð°Ð½Ð½Ð¾Ðµ',
-                    'openForm' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð¾Ñ€Ð¼Ñƒ Ð¾Ð±Ñ€Ð°Ñ‚Ð½Ð¾Ð¹ ÑÐ²ÑÐ·Ð¸',
-                    'openGallery' => 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð³Ð°Ð»ÐµÑ€ÐµÑŽ',
+                    'openFavourites' => 'Îòêðûòü èçáðàííîå',
+                    'openForm' => 'Îòêðûòü ôîðìó îáðàòíîé ñâÿçè',
+                    'openGallery' => 'Îòêðûòü ãàëåðåþ',
                     //'openProfile' => false,
                 ]
             ],
@@ -194,23 +194,23 @@ class RegistrationFieldAdminInterface extends AdminInterface
         ];
         return [
             'MAIN'=>[
-                'NAME'=>'ÐžÑÐ½Ð¾Ð²Ð½Ñ‹Ðµ',
+                'NAME'=>'Îñíîâíûå',
                 'FIELDS'=>$aMain
             ],
             'REGISTER'=>[
-                'NAME'=>'Ð¤Ð¾Ñ€Ð¼Ð° Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸',
+                'NAME'=>'Ôîðìà ðåãèñòðàöèè',
                 'FIELDS'=>$aRegister,
             ],
             'VERIFICATION'=>[
-                'NAME'=>'Ð’ÐµÑ€Ð¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ñ',
+                'NAME'=>'Âåðèôèêàöèÿ',
                 'FIELDS'=>$aVerification,
             ],
             'PROFILE'=>[
-                'NAME'=>'ÐŸÑ€Ð¾Ñ„Ð¸Ð»ÑŒ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ',
+                'NAME'=>'Ïðîôèëü ïîëüçîâàòåëÿ',
                 'FIELDS'=>$aProfile,
             ],
             'RESTORE'=>[
-                'NAME'=>'Ð’Ð¾ÑÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¿Ð°Ñ€Ð¾Ð»Ñ',
+                'NAME'=>'Âîññòàíîâëåíèå ïàðîëÿ',
                 'FIELDS'=>$aRestore
             ],
         ];

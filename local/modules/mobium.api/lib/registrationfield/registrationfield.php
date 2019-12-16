@@ -12,16 +12,16 @@ Loc::loadMessages(__FILE__);
 class RegistrationFieldTable extends DataManager
 {
 
-    public static function extract($aModel, $aKeys = []) {
-        $aResult =  [
-            'id'=>$aModel['SLUG'],
-            'type'=>$aModel['TYPE'],
-            'title'=>$aField['NAME'],
-            'required'=>$aField['REQUIRED'] === 'Y',
-            'need_verification'=>$aField['NEED_VERIFICATION'] === 'Y',
-            'editable'=>($aField['EDITABLE'] ?? 'N') === 'Y'
-        ];
-    }
+//    public static function extract($aModel, $aKeys = []) {
+//        $aResult =  [
+//            'id'=>$aModel['SLUG'],
+//            'type'=>$aModel['TYPE'],
+//            'title'=>$aField['NAME'],
+//            'required'=>$aField['REQUIRED'] === 'Y',
+//            'need_verification'=>$aField['NEED_VERIFICATION'] === 'Y',
+//            'editable'=>($aField['EDITABLE'] ?? 'N') === 'Y'
+//        ];
+//    }
 
     /**
      * @return string
@@ -42,39 +42,39 @@ class RegistrationFieldTable extends DataManager
                 'autocomplete'=>true,
             ]),
             new Entity\StringField('SLUG', [
-                'title'=>'Ð¡Ð»Ð°Ð³',
+                'title'=>'Ñëàã',
                 'required'=>true,
                 'size'=>100,
             ]),
             new Entity\BooleanField('EDITABLE', [
                 'values'=>['N', 'Y'],
                 'default'=>'Y',
-                'title'=>'Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€ÑƒÐµÐ¼Ð¾Ðµ Ð¿Ð¾Ð»Ðµ',
+                'title'=>'Ðåäàêòèðóåìîå ïîëå',
             ]),
 
 
             new Entity\BooleanField('REGISTER_ACTIVE', [
                 'values'=>['N', 'Y'],
                 'default'=>'N',
-                'title'=>'ÐÐºÑ‚Ð¸Ð²Ð½Ð¾Ñ‚ÑŒ',
+                'title'=>'Àêòèâíîòü',
             ]),
             new Entity\BooleanField('REGISTER_REQUIRED', [
                 'values'=>['N', 'Y'],
                 'default'=>'N',
-                'title'=>'ÐžÐ±ÑÐ·Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ',
+                'title'=>'Îáÿçàòåëüíîå',
             ]),
             new Entity\IntegerField('REGISTER_SORT', [
-                'title'=>'Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ°',
+                'title'=>'Ñîðòèðîâêà',
                 'default'=>500,
             ]),
             new Entity\StringField('REGISTER_TYPE', [
                 'required'=>false,
-                'title'=>'Ð¢Ð¸Ð¿ Ð¿Ð¾Ð»Ñ',
+                'title'=>'Òèï ïîëÿ',
                 'size'=>30,
             ]),
             new Entity\StringField('REGISTER_TITLE', [
                 'required'=>false,
-                'title'=>'Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº',
+                'title'=>'Çàãîëîâîê',
                 'size'=>255,
             ]),
 
@@ -82,62 +82,62 @@ class RegistrationFieldTable extends DataManager
             new Entity\BooleanField('VERIFICATION_ACTIVE', [
                 'values'=>['N', 'Y'],
                 'default'=>'N',
-                'title'=>'ÐÐºÑ‚Ð¸Ð²Ð½Ð¾Ñ‚ÑŒ',
+                'title'=>'Àêòèâíîòü',
             ]),
             new Entity\IntegerField('VERIFICATION_TIME', [
-                'title'=>'Ð’Ñ€ÐµÐ¼Ñ Ð´Ð¾ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð³Ð¾ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°',
+                'title'=>'Âðåìÿ äî ïîâòîðíîãî çàïðîñà',
             ]),
             new Entity\StringField('VERIFICATION_TEXT', [
                 'size'=>255,
-                'title'=>'Ð¢ÐµÐºÑÑ‚ ÑÐºÑ€Ð°Ð½Ð° Ð°ÐºÑ‚Ð¸Ð²Ð°Ñ†Ð¸Ð¸',
+                'title'=>'Òåêñò ýêðàíà àêòèâàöèè',
             ]),
             new Entity\StringField('VERIFICATION_TYPE', [
                 'size'=>30,
-                'title'=>'Ð¢Ð¸Ð¿ Ð¿Ð¾Ð»Ñ',
+                'title'=>'Òèï ïîëÿ',
             ]),
             new Entity\StringField('VERIFICATION_DRIVER', [
                 'size'=>30,
-                'title'=>'Ð¡Ð¿Ð¾ÑÐ¾Ð± Ð²ÐµÑ€Ð¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸',
+                'title'=>'Ñïîñîá âåðèôèêàöèè',
             ]),
 
 
             new Entity\BooleanField('PROFILE_ACTIVE', [
                 'values'=>['N','Y'],
                 'default'=>'N',
-                'title'=>'ÐÐºÑ‚Ð¸Ð²Ð½Ð¾ÑÑ‚ÑŒ',
+                'title'=>'Àêòèâíîñòü',
             ]),
             new Entity\IntegerField('PROFILE_SORT', [
-                'title'=>'Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ°',
+                'title'=>'Ñîðòèðîâêà',
                 'default'=>500,
             ]),
             new Entity\StringField('PROFILE_TITLE', [
                 'required'=>false,
-                'title'=>'Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº',
+                'title'=>'Çàãîëîâîê',
                 'size'=>30,
             ]),
             new Entity\StringField('PROFILE_TYPE', [
                 'required'=>false,
-                'title'=>'Ð¢Ð¸Ð¿ Ð¿Ð¾Ð»Ñ',
+                'title'=>'Òèï ïîëÿ',
                 'size'=>30,
             ]),
             new Entity\StringField('PROFILE_ACTION', [
                 'required'=>false,
-                'title'=>'Ð­ÐºÑˆÐµÐ½',
+                'title'=>'Ýêøåí',
                 'size'=>30,
             ]),
             new Entity\StringField('PROFILE_ACTION_PARAM', [
                 'required'=>false,
-                'title'=>'ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑÐºÑˆÐµÐ½Ð°',
+                'title'=>'Ïàðàìåòðû ýêøåíà',
                 'size'=>30,
             ]),
 
             new Entity\BooleanField('RESTORE_ACTIVE', [
                 'values'=>['N','Y'],
                 'default'=>'N',
-                'title'=>'ÐÐºÑ‚Ð¸Ð²Ð½Ð¾ÑÑ‚ÑŒ',
+                'title'=>'Àêòèâíîñòü',
             ]),
             new Entity\IntegerField('RESTORE_SORT', [
-                'title'=>'Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ°',
+                'title'=>'Ñîðòèðîâêà',
                 'default'=>500,
             ]),
         ];
