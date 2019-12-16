@@ -27,3 +27,4 @@ $MESS["MOBIUM_API_MODULE_MAIN_EMPTY_TOKEN"] = "Токен не передан";
 $MESS["MOBIUM_API_MODULE_MAIN_SMS_OFF"] = "Авторизация по СМС не подключена";
 $MESS["MOBIUM_API_MODULE_MAIN_ORDERS_OFF"] = "Функционал заказов не нестроен";
 $MESS["MOBIUM_API_MODULE_MAIN_NO_METHOD"] = "Метод '#name#' отсутствует в системе";
+$MESS["MOBIUM_API_MODULE_MAIN_NO_PHOTO"] = "Файл загружен с ошибкой";
