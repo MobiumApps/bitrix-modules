@@ -1,0 +1,15 @@
+{
+  "appId": 2300858,
+  "platform": "iOS",
+  "locale": "",
+  "pushToken": "appId",
+  "regionId": "1",
+  "name": "\u0410\u043d\u0434\u0440\u0435\u0439",
+  "last_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043a\u043e\u0432",
+  "email": "silver.inflot@yandex.ru",
+  "phone": "+7 (921) 976 26 25",
+  "password": "123456",
+  "password_confirm": "123456",
+  "birthday": "17.05.1988",
+  "sex": "male"
+}

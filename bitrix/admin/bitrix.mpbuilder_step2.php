@@ -1,0 +1,1 @@
+<? require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/bitrix.mpbuilder/admin/step2.php");?>

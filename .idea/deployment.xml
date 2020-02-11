@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" promptOnRemoteOverwrite="CHECK_TIMESTAMP" serverName="mobiumStand" notifyRemoteChanges="true">
+    <serverData>
+      <paths name="astarta">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="local">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="mobiumStand">
+        <serverdata>
+          <mappings>
+            <mapping deploy="www" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/home/bitrix/www/bitrix/wizards/bitrix" />
+            <excludedPath path="/home/bitrix/www/bitrix/gadgets" />
+            <excludedPath path="/home/bitrix/www/bitrix/managed_cache" />
+            <excludedPath path="/home/bitrix/www/bitrix/image_uploader" />
+            <excludedPath path="/home/bitrix/www/upload/catalog" />
+            <excludedPath path="/home/bitrix/www/upload/iblock" />
+            <excludedPath path="/home/bitrix/www/upload/resize_cache" />
+            <excludedPath path="/home/bitrix/www/upload/rk" />
+            <excludedPath path="/home/bitrix/www/upload/sale" />
+            <excludedPath path="/home/bitrix/www/upload/support" />
+            <excludedPath path="/home/bitrix/www/upload/tmp" />
+            <excludedPath path="/home/bitrix/www/upload/uf" />
+            <excludedPath path="/home/bitrix/www/bitrix/templates/desktop_app" />
+            <excludedPath path="/home/bitrix/www/bitrix/templates/eshop_bootstrap_v4" />
+            <excludedPath path="/home/bitrix/www/bitrix/templates/landing24" />
+            <excludedPath path="/home/bitrix/www/bitrix/templates/learning" />
+            <excludedPath path="/home/bitrix/www/bitrix/templates/mail_user" />
+            <excludedPath path="/home/bitrix/www/bitrix/activities/bitrix" />
+            <excludedPath path="/home/bitrix/www/bitrix/blocks/bitrix" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/01" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/05" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/08" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/0b" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/1f" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/2f" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/3f" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/52" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/57" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/86" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/aa" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/abtest" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/ac" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/ad" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/bx" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/c2" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/c8" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/catalog" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/cd" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/css" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/e2" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/e8" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/f8" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/iblock" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/js" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/main" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/medialib" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/s1" />
+            <excludedPath path="/home/bitrix/www/bitrix/cache/sale" />
+            <excludedPath path="/home/bitrix/www/bitrix/components/bitrix" />
+            <excludedPath path="/home/bitrix/www/bitrix/otp/ws" />
+            <excludedPath path="/home/bitrix/www/bitrix/panel/catalog" />
+            <excludedPath path="/home/bitrix/www/bitrix/panel/iblock" />
+            <excludedPath path="/home/bitrix/www/bitrix/panel/main" />
+            <excludedPath path="/home/bitrix/www/bitrix/panel/sale" />
+            <excludedPath path="/home/bitrix/www/bitrix/panel/seo" />
+            <excludedPath path="/home/bitrix/www/bitrix/panel/storeassist" />
+            <excludedPath path="/home/bitrix/www/bitrix/services/ajax" />
+            <excludedPath path="/home/bitrix/www/bitrix/services/main" />
+            <excludedPath path="/home/bitrix/www/bitrix/services/mobileapp" />
+            <excludedPath path="/home/bitrix/www/bitrix/services/rest" />
+            <excludedPath path="/home/bitrix/www/bitrix/services/sale" />
+            <excludedPath path="/home/bitrix/www/bitrix/services/stssync" />
+            <excludedPath path="/home/bitrix/www/bitrix/services/ymarket" />
+            <excludedPath path="/home/bitrix/www/bitrix/stack_cache/MYSQL" />
+            <excludedPath path="/home/bitrix/www/bitrix/sounds/main" />
+            <excludedPath path="/home/bitrix/www/bitrix/sounds/socialnetwork" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/wizards/bitrix" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/gadgets" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/managed_cache" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/image_uploader" />
+            <excludedPath local="true" path="$PROJECT_DIR$/upload/catalog" />
+            <excludedPath local="true" path="$PROJECT_DIR$/upload/iblock" />
+            <excludedPath local="true" path="$PROJECT_DIR$/upload/resize_cache" />
+            <excludedPath local="true" path="$PROJECT_DIR$/upload/rk" />
+            <excludedPath local="true" path="$PROJECT_DIR$/upload/sale" />
+            <excludedPath local="true" path="$PROJECT_DIR$/upload/support" />
+            <excludedPath local="true" path="$PROJECT_DIR$/upload/tmp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/upload/uf" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/templates/desktop_app" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/templates/eshop_bootstrap_v4" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/templates/landing24" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/templates/learning" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/templates/mail_user" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/activities/bitrix" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/blocks/bitrix" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/01" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/05" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/08" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/0b" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/1f" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/2f" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/3f" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/52" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/57" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/86" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/aa" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/abtest" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/ac" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/ad" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/bx" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/c2" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/c8" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/catalog" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/cd" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/css" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/e2" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/e8" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/f8" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/iblock" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/js" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/main" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/medialib" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/s1" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/cache/sale" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/components/bitrix" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/otp/ws" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/panel/catalog" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/panel/iblock" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/panel/main" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/panel/sale" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/panel/seo" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/panel/storeassist" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/services/ajax" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/services/main" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/services/mobileapp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/services/rest" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/services/sale" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/services/stssync" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/services/ymarket" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/stack_cache/MYSQL" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/sounds/main" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bitrix/sounds/socialnetwork" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="open server">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

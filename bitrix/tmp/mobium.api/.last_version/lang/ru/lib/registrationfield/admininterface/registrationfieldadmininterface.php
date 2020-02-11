@@ -1,0 +1,33 @@
+<?
+$MESS["MOBIUM_API_TEKST"] = "Текст";
+$MESS["MOBIUM_API_PAROLQ"] = "Пароль";
+$MESS["MOBIUM_API_TELEFON"] = "Телефон";
+$MESS["MOBIUM_API_VYBO_POLA"] = "Выбо пола";
+$MESS["MOBIUM_API_DATA"] = "Дата";
+$MESS["MOBIUM_API_DANNYE_OB_IMENI"] = "Данные об имени";
+$MESS["MOBIUM_API_IZOBRAJENIE_I_DEYSTV"] = "Изображение и действие";
+$MESS["MOBIUM_API_ZAGOLOVOK_I_ZNACENIE"] = "Заголовок и значение";
+$MESS["MOBIUM_API_DEYSTVIE"] = "Действие";
+$MESS["MOBIUM_API_BONUSY"] = "Бонусы";
+$MESS["MOBIUM_API_STRIH_KOD"] = "Штрих-код";
+$MESS["MOBIUM_API_OTKRYTQ_KATEGORIU"] = "Открыть категорию";
+$MESS["MOBIUM_API_OTKRYTQ_KATALOG"] = "Открыть каталог";
+$MESS["MOBIUM_API_OTKRYTQ_TOVAR"] = "Открыть товар";
+$MESS["MOBIUM_API_OTKRYTQ_POISK"] = "Открыть поиск";
+$MESS["MOBIUM_API_SSYLKA_V_PRILOJENII"] = "Ссылка в приложении";
+$MESS["MOBIUM_API_SSYLKA_V_BRAUZERE"] = "Ссылка в браузере";
+$MESS["MOBIUM_API_ZVONOK"] = "Звонок";
+$MESS["MOBIUM_API_OTKRYTQ_KORZINU"] = "Открыть корзину";
+$MESS["MOBIUM_API_OTKRYTQ_GLAVNYY_EKRA"] = "Открыть главный экран";
+$MESS["MOBIUM_API_OTKRYTQ_KARTU"] = "Открыть карту";
+$MESS["MOBIUM_API_OTKRYTQ_ISTORIU_ZAKA"] = "Открыть историю заказов";
+$MESS["MOBIUM_API_OTKRYTQ_STATQU"] = "Открыть статью";
+$MESS["MOBIUM_API_OTKRYTQ_IZBRANNOE"] = "Открыть избранное";
+$MESS["MOBIUM_API_OTKRYTQ_FORMU_OBRATN"] = "Открыть форму обратной связи";
+$MESS["MOBIUM_API_OTKRYTQ_GALEREU"] = "Открыть галерею";
+$MESS["MOBIUM_API_OSNOVNYE"] = "Основные";
+$MESS["MOBIUM_API_FORMA_REGISTRACII"] = "Форма регистрации";
+$MESS["MOBIUM_API_VERIFIKACIA"] = "Верификация";
+$MESS["MOBIUM_API_PROFILQ_POLQZOVATELA"] = "Профиль пользователя";
+$MESS["MOBIUM_API_VOSSTANOVLENIE_PAROL"] = "Восстановление пароля";
+?>
