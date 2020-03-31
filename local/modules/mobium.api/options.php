@@ -141,6 +141,17 @@ $tabControl->begin();
             />
         </td>
     </tr>
+    <tr>
+        <td width="40%">
+            <label for="max_image_size"><?='Поле для фильтрации'?>:</label>
+        <td width="60%">
+            <input type="text"
+                   size="50"
+                   name="offers_iblock"
+                   value="<?=\Bitrix\Main\Text\HtmlFilter::encode(Option::get(ADMIN_MODULE_NAME, "filter_name", 'ACTION_ICON'));?>"
+            />
+        </td>
+    </tr>
 
     <?php
     $tabControl->buttons();

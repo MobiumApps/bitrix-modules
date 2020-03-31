@@ -1,162 +1,210 @@
 <?php
-use Bitrix\Main\Application;
-use Bitrix\Main\ModuleManager;
-use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\Loader;
-
 IncludeModuleLangFile(__FILE__);
 
-class mobium_api extends CModule
+use Bitrix\Main\{Application, Config\Option, ModuleManager, Localization, Loader, IO};
+use \Bitrix\Catalog;
+
+Localization\Loc::loadMessages(__FILE__);
+
+Class mobium_api extends CModule
 {
-    var $MODULE_ID = 'mobium.api';
-    var $MODULE_VERSION;
-    var $MODULE_VERSION_DATE;
-    var $MODULE_NAME = 'API Mobium';
-    var $MODULE_DESCRIPTION;
-    var $MODULE_GROUP_RIGHTS = 'Y';
-    var $MODULE_CSS;
-    var $PARTNER_NAME = 'Mobium';
-    var $PARTNER_URI = '';
-    protected $installPath = '';
+	function __construct()
+	{
+		$arModuleVersion = require("version.php");
+		$this->MODULE_ID = "mobium.api";
+		$this->MODULE_VERSION = $arModuleVersion["VERSION"];
+		$this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
+		$this->MODULE_NAME = "API Mobium";
+		$this->MODULE_DESCRIPTION = Localization\Loc::getMessage('MOBIUM_API_MODULE_DESCR');
+		$this->PARTNER_NAME = "Mobium";
+		$this->PARTNER_URI = "https://mobiumapps.com";
+		$this->MODULE_GROUP_RIGHTS = 'Y';
+		$this->exclusionAdminFiles = [
+			'..',
+			'.',
+			'menu.php'
+		];
+	}
 
-    public $requiredModules = [];
+	function DoInstall()
+	{
+		global $APPLICATION;
+		if (!$this->isVersionD7()) {
+			$APPLICATION->ThrowException(Localization\Loc::getMessage("MOBIUM_API_INSTALL_D7VERSION_ERROR"));
+		}
+		if (version_compare("7.0.0", phpversion()) > 0) {
+			$APPLICATION->ThrowException(Localization\Loc::getMessage("MOBIUM_API_INSTALL_PHPVERSION_ERROR"));
+		}
+		$this->checkDependencies();
+		$context = Application::getInstance()->getContext();
+		$request = $context->getRequest();
+		switch ($request['step']) {
+			case 2:
+				$APPLICATION->IncludeAdminFile(Localization\Loc::getMessage("MOBIUM_API_step2_TITLE"),
+					$this->GetPath() . "/install/step2.php");
+				break;
+			case 1:
+				$APPLICATION->IncludeAdminFile(Localization\Loc::getMessage("MOBIUM_API_step1_TITLE"),
+					$this->GetPath() . "/install/step1.php");
+			default:
+				$this->InstallDB();
+				$this->InstallEvents();
+				$this->InstallFiles();
+				$this->SetOptions();
+				if (!$ex = $APPLICATION->GetException()) {
+					ModuleManager::registerModule($this->MODULE_ID);
+					Loader::includeModule($this->MODULE_ID);
+					/**
+					 * Запускаем Экспорт каталога
+					 */
+					CAgent::AddAgent(
+						'Mobium\Api\ExportYML::run();',
+						'mobium.api',
+						'Y',
+						3600,
+						ConvertTimeStamp(time(),"FULL"),
+						"Y",
+						ConvertTimeStamp(time(),"FULL")
+					);
+					/**
+					 * Запускаем Экспорт остатков
+					 */
+					CAgent::AddAgent(
+						'Mobium\Api\ExportBalance::run();',
+						'mobium.api',
+						'Y',
+						3600,
+						ConvertTimeStamp(time(),"FULL"),
+						"Y",
+						ConvertTimeStamp(time(),"FULL")
+					);
+				}
+				$APPLICATION->IncludeAdminFile(Localization\Loc::getMessage("MOBIUM_API_INSTALL_TITLE"),
+					$this->GetPath() . "/install/step.php");
+		}
+		return true;
+	}
 
-    function __construct()
-    {
-        $this->_installPath = $_SERVER['DOCUMENT_ROOT']
-            . '/local/modules/mobium.api/install/';
-        $arModuleVersion = array();
-        $this->installPath = __DIR__;
-        include(__DIR__ . '/version.php');
-        $this->requiredModules = include(__DIR__.'/require.php');
-        if (is_array($arModuleVersion) && array_key_exists('VERSION', $arModuleVersion))
-        {
-            $this->MODULE_VERSION = $arModuleVersion['VERSION'];
-            $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
-        }
-    }
+	function DoUninstall()
+	{
+		$this->UnInstallDB();
+		$this->UnInstallEvents();
+		$this->UnInstallFiles();
+		CAgent::RemoveModuleAgents($this->MODULE_ID);
+		ModuleManager::unRegisterModule($this->MODULE_ID);
+		return true;
+	}
 
-    public function DoInstall()
-    {
-        $this->checkDependencies();
-        global $DB, $DBType, $APPLICATION;
-        $this->_errors = false;
-        $this->_errors = $DB->RunSQLBatch(
-            $this->_installPath . 'db/' . strtolower($DB->type) . '/install.sql'
-        );
-        ModuleManager::registerModule($this->MODULE_ID);
-        Loader::includeModule($this->MODULE_ID);
-        /** @see https://dev.1c-bitrix.ru/api_help/main/reference/cagent/addagent.php */
-        CAgent::AddAgent(
-            'Mobium\Api\ExportYML::run();',
-            'mobium.api',
-            'N',
-            86400
-        );
+	function InstallDB()
+	{
+		global $DB, $APPLICATION;
+		$this->errors = false;
+		$this->errors = $DB->RunSQLBatch($this->GetPath() . "/install/db/mysql/install.sql");
+		if ($this->errors) {
+			$APPLICATION->ThrowException(Localization\Loc::getMessage("MOBIUM_API_INSTALL_DB_ERROR",["#errors#" => implode(", ",$this->errors)])); ;
+		}
+	}
 
-        CAgent::AddAgent(
-            'Mobium\Api\ExportBalance::run();',
-            'mobium.api',
-            'N',
-            86400
-        );
+	function UnInstallDB()
+	{
+		global $DB;
+		$this->errors = false;
+		$this->errors = $DB->RunSQLBatch($this->GetPath() . "/install/db/mysql/uninstall.sql");
+		if (!$this->errors) {
+			return true;
+		} else {
+			return $this->errors;
+		}
+	}
 
-        CAgent::AddAgent(
-            'Mobium\Api\ExportPoints::run();',
-            'mobium.api',
-            'N',
-            86400
-        );
+	function InstallEvents()
+	{
+		return true;
+	}
 
+	function UnInstallEvents()
+	{
+		return true;
+	}
 
-        $this->installFiles();
-    }
+	function InstallFiles()
+	{
+		CopyDirFiles($this->GetPath()."/install/components", $_SERVER["DOCUMENT_ROOT"]."/local/components", true, true);
+		if (IO\Directory::isDirectoryExists($path = $this->GetPath() . '/admin')) {
+			// CopyDirFiles($this->GetPath()."/install/admin/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin"); // если есть файлы админки
+			if ($dir = opendir($path)) {
+				while (false !== $item = readdir($dir)) {
+					if (in_array($item, $this->exclusionAdminFiles))
+						continue;
+					file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/bitrix/admin/' . $this->MODULE_ID.'_'.$item,
+						'<'.'? require($_SERVER["DOCUMENT_ROOT"]."'.$this->GetPath(true).'/admin/'.$item.'");?'.'>');
+				}
+				closedir($dir);
+			}
+		}
+		return true;
+	}
 
-    public function DoUninstall()
-    {
-        global $USER, $DB, $APPLICATION, $step, $module_id;
-        $step = (int)$step;
-        $module_id = $this->MODULE_ID;
+	function UnInstallFiles()
+	{
+		IO\Directory::deleteDirectory($_SERVER["DOCUMENT_ROOT"] . '/local/components/mobium/');
+		if(IO\Directory::isDirectoryExists($path = $this->GetPath().'/admin')) {
+			// DeleteDirFiles($_SERVER["DOCUMENT_ROOT"] . $this->GetPath() . '/install/admin/', $_SERVER["DOCUMENT_ROOT"] . '/bitrix/admin');
+			if($dir = opendir($path)) {
+				while (false !== $item = readdir($dir)) {
+					if (in_array($item, $this->exclusionAdminFiles)) continue;
+					IO\File::deleteFile($_SERVER["DOCUMENT_ROOT"] . '/bitrix/admin/' . $this->MODULE_ID . '_' . $item);
+				}
+				closedir($dir);
+			}
+		}
+		return true;
+	}
 
-        if (!$USER->IsAdmin()) {
-            return;
-        }
+	function isVersionD7()
+	{
+		return CheckVersion(ModuleManager::getVersion('main'), '14.00.00');
+	}
 
-        if ($step < 2) {
-            $APPLICATION->IncludeAdminFile(
-                GetMessage('ESTATE_UNINSTALL_TITLE'),
-                $this->installPath . '/uninstall/step1.php'
-            );
+	function GetPath($notDocumentRoot = false)
+	{
+		$parentDir = dirname(__DIR__);
+		if ($notDocumentRoot) {
+			return str_ireplace(Application::getDocumentRoot(),'', $parentDir);
+		}
+		else {
+			return $parentDir;
+		}
+	}
 
-            return;
-        }
-
-        Loader::includeModule($this->MODULE_ID);
-        $this->UnInstallDB([
-            "delete_tables" => $_REQUEST["delete_tables"],
-        ]);
-        $this->unInstallFiles();
-
-        ModuleManager::unRegisterModule($this->MODULE_ID);
-    }
-
-    public function UnInstallDB($arParams = [])
-    {
-        if ($arParams['delete_tables'] == 'Y') {
-            $connection = Application::getConnection();
-            //$connection->dropTable();
-        }
-    }
-
-    public function installFiles()
-    {
-         /*CopyDirFiles(
-             $this->_installPath . 'components/',
-             $_SERVER['DOCUMENT_ROOT'] . '/bitrix/components',
-             true,
-             true
-         );*/
-    }
-
-    public function unInstallFiles()
-    {
-
-    }
-
-    protected function checkDependencies(){
-        $result = [];
-        foreach ($this->requiredModules as $module){
-            if (!Loader::includeModule($module)){
-                $result[] = $module;
-            }
-        }
-        if (!empty($result)){
-            $this->showError($this->installPath . '/install/modules_not_installed.php', ['modules'=>$result]);
-        }
-        return true;
-    }
-
-    protected function showError($file, $arVariables, $strTitle=''){
-        //define all global vars
-        $keys = array_keys($GLOBALS);
-        $keys_count = count($keys);
-        for($i=0; $i<$keys_count; $i++)
-            if($keys[$i]!="i" && $keys[$i]!="GLOBALS" && $keys[$i]!="strTitle" && $keys[$i]!="filepath")
-                global ${$keys[$i]};
-
-        //title
-        $APPLICATION->SetTitle($strTitle);
-        include($_SERVER["DOCUMENT_ROOT"].BX_ROOT."/modules/main/include/prolog_admin_after.php");
-        include($file);
-        include($_SERVER["DOCUMENT_ROOT"].BX_ROOT."/modules/main/include/epilog_admin.php");
-        die();
-    }
-
-    /**
-     * @return \Bitrix\Main\DB\Connection
-     */
-    protected function _getConnection()
-    {
-        return Application::getConnection();
-    }
+	protected function checkDependencies()
+	{
+		global $APPLICATION;
+		$arModules = require ($this->GetPath()."/modules.php");
+		foreach ($arModules as $module){
+			if (!Loader::includeModule($module)){
+				$result[] = $module;
+			}
+		}
+		if (!empty($result)){
+			$APPLICATION->ThrowException(Localization\Loc::getMessage("MOBIUM_API_INSTALL_MODULE_REQUIRE", ['#modules#'=>implode(", ",$result)]));
+		}
+		return true;
+	}
+	protected function SetOptions ()
+	{
+		Loader::IncludeModule('catalog');
+		$res = Catalog\CatalogIblockTable::GetList();
+		$arProductsIds = $arOffersIds = [];
+		while( $arCatalog = $res->Fetch()) {
+			if(!$arCatalog['PRODUCT_IBLOCK_ID'])	$arProductsIds[] = $arCatalog['IBLOCK_ID'];
+			else $arOffersIds[$arCatalog['PRODUCT_IBLOCK_ID']] = $arCatalog['IBLOCK_ID'];
+		}
+		foreach($arProductsIds as $pId){
+			$fId = $arOffersIds[$pId];
+			if($fId) break;
+		}
+		Option::set($this->MODULE_ID, "products_iblock", $pId);
+		Option::set($this->MODULE_ID, "offers_iblock", $fId);
+	}
 }

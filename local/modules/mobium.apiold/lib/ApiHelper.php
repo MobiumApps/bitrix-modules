@@ -19,11 +19,16 @@ use Exception;
 use Mobium\Api\DeliveryType\DeliveryTypeTable;
 use phpDocumentor\Reflection\Types\Float_;
 
+/**
+ * Class ApiHelper
+ * @package Mobium\Api
+ */
 class ApiHelper
 {
 
 
     /**
+	 *
      * @return bool
      */
     public static function authorizeByHeader()
@@ -920,6 +925,7 @@ class ApiHelper
         try {
             $oConnection->queryExecute($sSql);
         } catch (\Bitrix\Main\Db\SqlQueryException $e) {
+        	//
         }
         return true;
     }

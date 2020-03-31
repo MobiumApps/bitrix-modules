@@ -12,16 +12,16 @@ Loc::loadMessages(__FILE__);
 class RegistrationFieldTable extends DataManager
 {
 
-    public static function extract($aModel, $aKeys = []) {
-        $aResult =  [
-            'id'=>$aModel['SLUG'],
-            'type'=>$aModel['TYPE'],
-            'title'=>$aField['NAME'],
-            'required'=>$aField['REQUIRED'] === 'Y',
-            'need_verification'=>$aField['NEED_VERIFICATION'] === 'Y',
-            'editable'=>($aField['EDITABLE'] ?? 'N') === 'Y'
-        ];
-    }
+//    public static function extract($aModel, $aKeys = []) {
+//        $aResult =  [
+//            'id'=>$aModel['SLUG'],
+//            'type'=>$aModel['TYPE'],
+//            'title'=>$aField['NAME'],
+//            'required'=>$aField['REQUIRED'] === 'Y',
+//            'need_verification'=>$aField['NEED_VERIFICATION'] === 'Y',
+//            'editable'=>($aField['EDITABLE'] ?? 'N') === 'Y'
+//        ];
+//    }
 
     /**
      * @return string

@@ -1,6 +1,10 @@
 <?php
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
+use \Mobium\Api\ProductsExportProps;
+use \Mobium\Api\OffersExportProps;
+use \Mobium\Api\RegistrationField;
+use \Mobium\Api\DeliveryTypeTable;
 
 if (!Loader::includeModule('digitalwand.admin_helper') || !Loader::includeModule('mobium.api')) return;
 
@@ -17,48 +21,48 @@ return [
         "items"       => [
             array(
                 'parent_menu' => 'global_menu_content',
-                'sort' => 200,
+                'sort' => 150,
                 'icon' => 'iblock_menu_icon',
                 'page_icon' => 'iblock_menu_icon',
-                'text' => 'Поля регистрации',
-                'url' => \Mobium\Api\RegistrationField\AdminInterface\RegistrationFieldListHelper::getUrl(),
+                'text' => Loc::getMessage("MOBIUM_API_PRODUCTS_TITLE"),
+                'url' => ProductsExportProps\AdminInterface\ProductsExportPropsListHelper::getUrl(),
                 'more_url'=>[
-                    \Mobium\Api\RegistrationField\AdminInterface\RegistrationFieldEditHelper::getUrl()
+                    ProductsExportProps\AdminInterface\ProductsExportPropsEditHelper::getUrl()
                 ]
             ),
             array(
                 'parent_menu' => 'global_menu_content',
-                'sort' => 200,
+                'sort' => 160,
                 'icon' => 'iblock_menu_icon',
                 'page_icon' => 'iblock_menu_icon',
-                'text' => 'Способы доставки',
-                'url' => \Mobium\Api\DeliveryType\AdminInterface\DeliveryTypeListHelper::getUrl(),
+                'text' => Loc::getMessage("MOBIUM_API_OFFERS_TITLE"),
+                'url' => OffersExportProps\AdminInterface\OffersExportPropsListHelper::getUrl(),
                 'more_url'=>[
-                    \Mobium\Api\DeliveryType\AdminInterface\DeliveryTypeEditHelper::getUrl()
+                    OffersExportProps\AdminInterface\OffersExportPropsEditHelper::getUrl()
                 ]
             ),
             array(
                 'parent_menu' => 'global_menu_content',
-                'sort' => 200,
+                'sort' => 170,
                 'icon' => 'iblock_menu_icon',
                 'page_icon' => 'iblock_menu_icon',
-                'text' => 'Экспорт свойств товаров',
-                'url' => \Mobium\Api\ProductsExportProps\AdminInterface\ProductsExportPropsListHelper::getUrl(),
+                'text' => Loc::getMessage("MOBIUM_API_FIELDS_TITLE"),
+                'url' => RegistrationField\AdminInterface\registrationfieldlisthelper::getUrl(),
                 'more_url'=>[
-                    \Mobium\Api\ProductsExportProps\AdminInterface\ProductsExportPropsEditHelper::getUrl()
+					RegistrationField\AdminInterface\registrationfieldedithelper::getUrl()
                 ]
             ),
-            array(
-                'parent_menu' => 'global_menu_content',
-                'sort' => 200,
-                'icon' => 'iblock_menu_icon',
-                'page_icon' => 'iblock_menu_icon',
-                'text' => 'Экспорт свойств товарных предложений',
-                'url' => \Mobium\Api\OffersExportProps\AdminInterface\OffersExportPropsListHelper::getUrl(),
-                'more_url'=>[
-                    \Mobium\Api\OffersExportProps\AdminInterface\OffersExportPropsEditHelper::getUrl()
-                ]
-            ),
+//            array(
+//                'parent_menu' => 'global_menu_content',
+//                'sort' => 180,
+//                'icon' => 'iblock_menu_icon',
+//                'page_icon' => 'iblock_menu_icon',
+//                'text' => Loc::getMessage("MOBIUM_API_FIELDS_TITLE"),
+//                'url' => DeliveryTypeTable\AdminInterface\deliverytypelisthelper::getUrl(),
+//                'more_url'=>[
+//					DeliveryTypeTable\AdminInterface\deliverytypeedithelper::getUrl()
+//                ]
+//            ),
         ],
     ]
 ];

@@ -1,4 +1,4 @@
-CREATE TABLE `mobium_registration_fields` (
+CREATE TABLE IF NOT EXISTS `mobium_registration_fields` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `SLUG` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `EDITABLE` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
@@ -29,7 +29,7 @@ CREATE TABLE `mobium_registration_fields` (
   KEY `PROFILE_ACTIVE` (`PROFILE_ACTIVE`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-CREATE TABLE `mobium_user_token`(
+CREATE TABLE IF NOT EXISTS `mobium_user_token`(
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `BODY` varchar(50) COLLATE utf8_general_ci NOT NULL,
   `CREATED_AT` int(11) NOT NULL,
@@ -39,8 +39,7 @@ CREATE TABLE `mobium_user_token`(
   PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-
-CREATE TABLE `mobium_delivery_type_assoc`(
+CREATE TABLE IF NOT EXISTS `mobium_delivery_type_assoc`(
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ACTIVE` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `DELIVERY_SERVICE_ID_BITRIX` varchar(100) COLLATE utf8_general_ci NOT NULL,
@@ -49,7 +48,7 @@ CREATE TABLE `mobium_delivery_type_assoc`(
   PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-CREATE TABLE `mobium_offers_export_props`(
+CREATE TABLE IF NOT EXISTS `mobium_offers_export_props`(
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `EXPORT_PROP_ID` VARCHAR(255) COLLATE utf8_general_ci NOT NULL,
   `EXPORT_PROP` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'Y',
@@ -62,7 +61,7 @@ CREATE TABLE `mobium_offers_export_props`(
   PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-CREATE TABLE `mobium_products_export_props`(
+CREATE TABLE IF NOT EXISTS `mobium_products_export_props`(
    `ID` int(11) NOT NULL AUTO_INCREMENT,
    `EXPORT_PROP_ID` VARCHAR(255) COLLATE utf8_general_ci NOT NULL,
    `EXPORT_PROP` char(1) COLLATE utf8_general_ci NOT NULL DEFAULT 'Y',
@@ -75,7 +74,7 @@ CREATE TABLE `mobium_products_export_props`(
    PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-CREATE TABLE `mobium_register_session`(
+CREATE TABLE IF NOT EXISTS `mobium_register_session`(
    `ID` int(11) NOT NULL AUTO_INCREMENT,
    `APP_ID` INT(11) NOT NULL,
    `CREATED_AT` INT(11) NOT NULL,
@@ -83,7 +82,7 @@ CREATE TABLE `mobium_register_session`(
    PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-CREATE TABLE `mobium_auth_tries`(
+CREATE TABLE IF NOT EXISTS `mobium_auth_tries`(
     `APP_ID` int(11) NOT NULL,
     `DATA` TEXT NULL,
     PRIMARY KEY (`APP_ID`)

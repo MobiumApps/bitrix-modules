@@ -1,7 +1,6 @@
 <?php
 namespace Mobium\Api\Widgets;
 
-
 use DigitalWand\AdminHelper\Widget\StringWidget;
 
 class TooltipOptionsWidget extends StringWidget
